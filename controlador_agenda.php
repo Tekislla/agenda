@@ -1,22 +1,38 @@
-<?php
-//controlador agenda
+<?php //controlador da agenda
 
-$contatos = file_get_contents("contatos.json");
-$contatos = json_decode($contatos, true);
+    function cadastrar(){
 
-$contato = [
-    "id"       => uniqid(),
-    "nome"     => "joao",
-    "email"    => "jplazarim@gmail.com",
-    "telefone" => "(47)99198-5098"
-];
+        $contatos = file_get_contents("contatos.json", true);
+        $contatos = json_decode($contatos, true);
 
+        $contato = [
+            "id"       => uniqid(), //gera um id novo e diferente sempre
+            "nome"     => $_POST['nome'],
+            "email"    => $_POST['email'],
+            "telefone" => $_POST['telefone']
+        ];
 
-array_push($contatos, $contato);
+        array_push($contatos, $contato);
 
+        $dados_json = json_encode($contatos, JSON_PRETTY_PRINT);
 
-$dados_json = json_encode($contatos, JSON_PRETTY_PRINT);
+        //atualizar conteúdo do arquivo
+        file_put_contents("contatos.json", $dados_json);
 
-file_put_contents("contatos.json", $dados_json);
+        header('location: index.php');
 
-print_r($dados_json);
+    } //fim cadastrar()
+
+    function pegarContatos(){
+
+        $contatos = file_get_contents("contatos.json", true);
+        $contatos = json_decode($contatos, true);
+
+        return $contatos;
+
+    }
+
+    //GERENCIAMENTO DE ROTAS
+    if ($_GET['acao'] == 'cadastrar'){
+        cadastrar();
+    }
