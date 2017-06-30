@@ -1,12 +1,13 @@
-<?php //controlador da agenda
+<?php //controlador agenda
 
     function cadastrar(){
 
-        $contatos = file_get_contents("contatos.json", true);
-        $contatos = json_decode($contatos, true);
+        //colar aqui pelo amor dos meus bigodes
+        $contatos = file_get_contents("contatos.json", true); //pegando os arquivos
+        $contatos = json_decode($contatos, true); // convertendo para um array
 
         $contato = [
-            "id"       => uniqid(), //gera um id novo e diferente sempre
+            "id"       => uniqid(), //gerar um id novo e diferente de todos cada vez que atualizar
             "nome"     => $_POST['nome'],
             "email"    => $_POST['email'],
             "telefone" => $_POST['telefone']
@@ -14,25 +15,69 @@
 
         array_push($contatos, $contato);
 
-        $dados_json = json_encode($contatos, JSON_PRETTY_PRINT);
+        $dados_json = json_encode($contatos, JSON_PRETTY_PRINT); //arrumar na hora de executar
 
-        //atualizar conteúdo do arquivo
+        //atualizar o conteudo do arquivo
         file_put_contents("contatos.json", $dados_json);
 
-        header('location: index.php');
+        header('Location: index.php');
+
 
     } //fim cadastrar()
 
+
     function pegarContatos(){
 
-        $contatos = file_get_contents("contatos.json", true);
-        $contatos = json_decode($contatos, true);
+        $contatos = file_get_contents("contatos.json", true); //pegando os arquivos
+        $contatos = json_decode($contatos, true); // convertendo para um array
 
         return $contatos;
 
     }
 
-    //GERENCIAMENTO DE ROTAS
-    if ($_GET['acao'] == 'cadastrar'){
-        cadastrar();
+    function editarContato($valorBuscado){
+        $contatos = file_get_contents("contatos.json", true); //pegando os arquivos
+        $contatos = json_decode($contatos, true); // convertendo para um array
+
+        foreach ($contatos as $contato) {
+
+            if($contato['nome'] == $valorBuscado){
+
+                echo $contato['nome'];
+                echo "\n";
+                echo $contato['email'];
+                echo "\n";
+                echo $contato['telefone'];
+                echo "\n";
+                sleep(1);
+            }
+        }
     }
+
+    editarContato('Joao Pedro');
+
+    function excluirContato($idContato){
+
+        $contatos = file_get_contents("contatos.json", true); //pegando os arquivos
+        $contatos = json_decode($contatos, true); // convertendo para um array
+
+        foreach($contatos as $posicao => $contato){
+
+            if($contato['id'] == $idContato){
+                unset($contatos[$posicao]);
+                break;
+            }
+        }
+
+        $contatos = json_encode($contatos, JSON_PRETTY_PRINT);
+        file_put_contents("contatos.json", $contatos);
+
+        header('Location: index.php');
+    }
+
+//    //GERENCIAMENTE DE ROTAS
+//    if ($_GET['acao'] == 'cadastrar'){
+//        cadastrar();
+//    } elseif($_GET['acao'] == 'excluir'){
+//        excluirContato($_GET['id']);
+//    }
