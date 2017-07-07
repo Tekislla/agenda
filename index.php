@@ -16,8 +16,9 @@ $meusContatos = pegarContatos();
 
 <div class="container" style="margin-top: 30px;">
 
-    <h3>MINHA AGENDA DE CONTATOS</h3>
-    <br />
+    <h1 align="center">Meus Contatos</h1>
+    <br/>
+    <br>
 
     <!-- CADASTRO-->
     <div class="row">
@@ -25,30 +26,53 @@ $meusContatos = pegarContatos();
             <form class="form-inline" action="controlador_agenda.php?acao=cadastrar" method="post" >
 
                 <!--nome-->
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input name="nome" type="text" class="form-control" id="nome">
+                <div class="col-md-3">
+                    <label for="nome"></label>
+                    <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome">
                 </div>
 
                 <!--email-->
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input name="email" type="email" class="form-control" id="email">
+                <div class="col-md-3">
+                    <label for="email"></label>
+                    <input name="email" type="email" class="form-control" id="email" placeholder="Email">
                 </div>
 
                 <!--telefone-->
-                <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <input name="telefone" type="text" class="form-control" id="telefone">
+                <div class="col-md-4">
+                    <label for="telefone"></label>
+                    <input name="telefone" type="text" class="form-control" id="telefone" placeholder="Telefone">
                 </div>
 
-                <button type="submit" class="btn btn-default">CADASTRAR</button>
+                <button type="submit" class="btn btn-primary">CADASTRAR
+                    <span class="glyphicon glyphicon-save"></span>
+                </button>
+                <br><br>
+                <div class="row">
+                    <div class="col-md-12" style="margin-left: 20px">
+                        <form action="index.php?acao=buscar" method="post">
+                            <div class="input-group col-md-10" style="float: left">
+                                <input type="text" class="form-control" id="busca" name="busca" value="<?= $_POST['busca'] ?>" placeholder="Busca">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-info" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <?php if ($_GET['acao'] == 'buscar'): ?>
+                                <div class="form-group  col-md-1">
+                                    <a class="btn btn-success form-group" style="float: right"  href="index.php">LIMPAR</a>
+                                </div>
+                            <?php endif; ?>
+                        </form>
+                    </div>
+                </div>
 
             </form>
         </div>
     </div>
-
-    <br />
+    <br>
+    <br>
+    <br>
 
     <!--CONTATOS-->
     <div class="row">
@@ -74,8 +98,16 @@ $meusContatos = pegarContatos();
                         <td><?= $contato['email'] ?>   </td>
                         <td><?= $contato['telefone'] ?></td>
                         <td>
-                            <a href="controlador_agenda.php?acao=excluir&id=<?= $contato['id'] ?>">Excluir</a>
-                            <a href="formulario_editar_contato.php?id=<?= $contato['id'] ?>">Editar</a>
+                            <a href="controlador_agenda.php?acao=excluir&id=<?= $contato['id'] ?>">
+                                <button type="submit" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </a>
+                            <a href="formulario_editar_contato.php?id=<?= $contato['id'] ?>">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

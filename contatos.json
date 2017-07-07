@@ -1,14 +1,8 @@
-[
-    {
-        "id": "594d21e642202",
-        "nome": "Joao Pedro",
+{
+    "1": {
+        "id": "595f8ff868e32",
+        "nome": "Jo\u00e3o Pedro",
         "email": "jplazarim@gmail.com",
-        "telefone": "(47)99198-5098"
-    },
-    {
-        "id": "595ba629daf7d",
-        "nome": "ASDFASD",
-        "email": "ASDFA@ASDFA",
-        "telefone": "3452342"
+        "telefone": "(47)99198-50988"
     }
-]
+}

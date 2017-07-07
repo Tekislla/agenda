@@ -30,9 +30,9 @@
 
         return $contatos;                                                                         //RETORNAR OS CONTATOS
 
-    }                                                                                                    //FIM DA FUNÇÃO
+    }                                                                                                      //FIM DA FUNÇÃO
 
-    function editarContato($valorBuscado){                                               //FUNÇÃO PARA EDITAR UM CONTATO
+    function buscarContato($valorBuscado){                                               //FUNÇÃO PARA EDITAR UM CONTATO
         $contatos = file_get_contents("contatos.json", true);                           //PEGAR OS DADOS DO ARQUIVO JSON
         $contatos = json_decode($contatos, true);                                      //CONVERTER DADOS JSON PARA ARRAY
 
@@ -91,4 +91,6 @@
         cadastrar();                                                                     //CHAMADA PARA FUNÇÃO CADASTRAR
     } elseif($_GET['acao'] == 'excluir'){
         excluirContato($_GET['id']);                                                       //CHAMADA PARA FUNÇÃO EXCLUIR
+    } elseif ($_GET['acao'] == 'editar'){
+        salvarContatoEditado($_GET['id']);
     }
